@@ -15,7 +15,6 @@ async function SetDatabase() {
 let colection = document.querySelector("#app");
 function getData() {
   let arr = [];
-  console.log("proverka");
   for (let i = 0; i < window.localStorage.length; i++) {
     arr.push(JSON.parse(window.localStorage.getItem(i)));
   }
