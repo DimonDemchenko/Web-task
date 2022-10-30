@@ -40,3 +40,12 @@ img {
   height: 296px;
   border: 2px solid black;
 }
+input {
+  display: none;
+}
+label {
+  cursor: pointer;
+  background-size: 110px 110px;
+  background-position: center;
+  background-repeat: no-repeat;
+}

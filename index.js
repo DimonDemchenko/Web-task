@@ -22,7 +22,6 @@ function getData() {
 }
 function createMarkup() {
   let arrayData = getData();
-
   const markup = arrayData
     .map(
       (photo) => `
@@ -36,11 +35,16 @@ function createMarkup() {
   colection.insertAdjacentHTML("beforeend", markup);
 
   const input = document.createElement("input");
-  input.textContent = "+++++";
+  const label = document.createElement("label");
+  label.for = "InputTag";
+  label.classList.add("add");
+  label.style.backgroundImage = 'url("./photos/background.png")';
   input.type = "file";
+  input.id = "InputTag";
   input.classList.add("add");
   input.addEventListener("change", addImage);
-  colection.appendChild(input);
+  colection.appendChild(label);
+  label.appendChild(input);
 }
 function addImage(event) {
   const fileList = event.target.files;
@@ -64,7 +68,8 @@ function setNewPhoto(url) {
       comments: [],
     })
   );
-  location.reload();
+  colection.innerHTML = "";
+  createMarkup();
 }
 
 SetDatabase();
