@@ -11,6 +11,8 @@ async function SetDatabase() {
     window.localStorage.setItem(index, JSON.stringify(item));
   }
   // console.log(JSON.parse(window.localStorage.getItem(1)))
+  createMarkup();
+  openModal();
 }
 let colection = document.querySelector("#app");
 function getData() {
@@ -87,5 +89,3 @@ function openModal() {
 }
 
 SetDatabase();
-createMarkup();
-openModal();
