@@ -35,17 +35,6 @@ function createMarkup() {
   const label = document.createElement("label");
   const modalForm = document.querySelector("#modalForm");
   const photoAdd = document.createElement("div");
-  // label.for = "InputTag";
-  // label.classList.add("add");
-  // label.style.backgroundImage = 'url("./photos/background.png")';
-
-  // input.type = "file";
-  // input.id = "InputTag";
-  // input.accept = "image/png, image/jpeg";
-  // input.classList.add("add");
-
-  modalForm.classList.add("is-hidden");
-  document.querySelector("#bodySize").appendChild(modalForm);
   photoAdd.classList.add("add");
   modalForm.addEventListener("click", (event) => {
     console.log(event.target);
@@ -56,8 +45,6 @@ function createMarkup() {
   photoAdd.style.backgroundImage = 'url("./photos/background.png")';
 
   photoAdd.addEventListener("click", () => {
-    document.querySelector("#panel").style.opacity = "1";
-    modalForm.classList.add("opacityClass");
     modalForm.classList.remove("is-hidden");
   });
   colection.appendChild(photoAdd);
