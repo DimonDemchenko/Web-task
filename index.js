@@ -26,7 +26,7 @@ function createMarkup() {
     .map(
       (photo) => `
     
-      <div ><img src="${photo.url}" class="photos"></div>
+      <div><img class="data-modal-open" src="${photo.url}" alt=""></div>
 
    `
     )
@@ -70,7 +70,25 @@ function setNewPhoto(url) {
   );
   colection.innerHTML = "";
   createMarkup();
+  openModal();
+}
+function openModal() {
+  let arrImages = document.querySelectorAll(".data-modal-open");
+  console.log(arrImages);
+  for (let img of arrImages) {
+    img.addEventListener("click", toggleModal);
+  }
+  let closeModal = document.querySelector(".modal-btn-close");
+  let modal = document.querySelector(".modal");
+
+  closeModal.addEventListener("click", toggleModal);
+
+  function toggleModal() {
+    console.log(modal);
+    modal.classList.toggle("is-hidden");
+  }
 }
 
 SetDatabase();
 createMarkup();
+openModal();
