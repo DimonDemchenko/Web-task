@@ -5,16 +5,14 @@ async function SetDatabase() {
   }).then((res) => {
     return res.json();
   });
-  // console.log(data)
   for (const [index, item] of data.entries()) {
-    // console.log(index, item)
     window.localStorage.setItem(index, JSON.stringify(item));
   }
-  // console.log(JSON.parse(window.localStorage.getItem(1)))
   createMarkup();
   openModal();
 }
 let colection = document.querySelector("#app");
+let modal = document.querySelector(".modal");
 function getData() {
   let arr = [];
   for (let i = 0; i < window.localStorage.length; i++) {
@@ -33,23 +31,44 @@ function createMarkup() {
 
   colection.insertAdjacentHTML("beforeend", markup);
 
-  const input = document.createElement("input");
+  const input = document.querySelector("#inputString");
   const label = document.createElement("label");
-  label.for = "InputTag";
-  label.classList.add("add");
-  label.style.backgroundImage = 'url("./photos/background.png")';
-  input.type = "file";
-  input.id = "InputTag";
-  input.classList.add("add");
+  const modalForm = document.querySelector("#modalForm");
+  const photoAdd = document.createElement("div");
+  // label.for = "InputTag";
+  // label.classList.add("add");
+  // label.style.backgroundImage = 'url("./photos/background.png")';
+
+  // input.type = "file";
+  // input.id = "InputTag";
+  // input.accept = "image/png, image/jpeg";
+  // input.classList.add("add");
+
+  modalForm.classList.add("is-hidden");
+  document.querySelector("#bodySize").appendChild(modalForm);
+  photoAdd.classList.add("add");
+  modalForm.addEventListener("click", (event) => {
+    console.log(event.target);
+    if (event.target == modalForm) {
+      modalForm.classList.add("is-hidden");
+    }
+  });
+  photoAdd.style.backgroundImage = 'url("./photos/background.png")';
+
+  photoAdd.addEventListener("click", () => {
+    document.querySelector("#panel").style.opacity = "1";
+    modalForm.classList.add("opacityClass");
+    modalForm.classList.remove("is-hidden");
+  });
+  colection.appendChild(photoAdd);
   input.addEventListener("change", addImage);
   colection.appendChild(label);
-  label.appendChild(input);
+  // label.appendChild(input);
 }
 function addImage(event) {
   const fileList = event.target.files;
   const reader = new FileReader();
   const file = fileList.item(0);
-
   reader.addEventListener("load", (event) => {
     setNewPhoto(event.target.result);
   });
@@ -80,9 +99,6 @@ function openModal() {
     });
   }
   let closeModal = document.querySelector(".modal-btn-close");
-  console.log(closeModal);
-  let modal = document.querySelector(".modal");
-
   closeModal.addEventListener("click", () => {
     modal.classList.add("is-hidden");
   });

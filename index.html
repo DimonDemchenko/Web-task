@@ -1,24 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link href="style.css" rel="stylesheet" />
-  </head>
 
-  <body>
-    <div class="navbar">
-      <h3>Photo storage</h3>
-      <h3>by Dimonchik and Bogdanchik</h3>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link href="style.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="navbar">
+    <h3>Photo storage</h3>
+    <h3>by Dimonchik and Bogdanchik</h3>
+  </div>
+
+  <div id="app" class="main">
+  </div>
+  <div class="div">
+    <div class="modal is-hidden">
+      <button class="modal-btn-close"></button>
     </div>
-    <div id="app" class="main"></div>
-    <div class="div">
-      <div class="modal is-hidden">
-        <button class="modal-btn-close"></button>
+
+  </div>
+  <div id="bodySize">
+    <div id="modalForm" class="is-hidden">
+
+      <div id="panel">
+        <form action="" class="form">
+          <label>Name</label><input type="text">
+          <label for="inputString" id="pictureGalary"></label><input type="file" id="inputString"
+            accept="image/png image/jpeg">
+        </form>
       </div>
     </div>
-    <script type="module" src="index.js"></script>
-  </body>
+  </div>
+  <script type="module" src="index.js"></script>
+</body>
+
 </html>

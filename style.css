@@ -40,16 +40,49 @@ img {
   width: 296px;
   height: 296px;
   border: 2px solid black;
-}
-input {
-  display: none;
-}
-label {
-  cursor: pointer;
+  /* cursor: pointer; */
   background-size: 110px 110px;
   background-position: center;
   background-repeat: no-repeat;
 }
+/* input {
+  display: none;
+} */
+/* label {
+  cursor: pointer;
+  background-size: 110px 110px;
+  background-position: center;
+  background-repeat: no-repeat;
+} */
+#bodySize {
+  width: 100%;
+  height: 100%;
+}
+#modalForm {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(178, 121, 52, 0.251);
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#inputString {
+  display: none;
+}
+#panel {
+  width: 500px;
+  height: auto;
+  background-color: rgb(44, 38, 38);
+  color: aliceblue;
+}
+
 .photos {
   background-size: cover;
 }
@@ -67,4 +100,17 @@ label {
 .is-hidden {
   opacity: 0;
   pointer-events: none;
+}
+input {
+  width: 80%;
+  color: black;
+}
+#pictureGalary {
+  width: 100px;
+  height: 100px;
+  background-image: url("./photos/galary.png");
+  background-color: aliceblue;
+  background-size: 100px 100px;
+  background-position: center;
+  background-repeat: no-repeat;
 }
