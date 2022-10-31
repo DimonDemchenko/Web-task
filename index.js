@@ -13,6 +13,8 @@ async function SetDatabase() {
 }
 let colection = document.querySelector("#app");
 let modal = document.querySelector(".modal");
+let modalParams = document.querySelector(".popupSizeParams");
+let popupImage = document.querySelector("#popupImage");
 function getData() {
   let arr = [];
   for (let i = 0; i < window.localStorage.length; i++) {
@@ -25,7 +27,7 @@ function createMarkup() {
   const markup = arrayData
     .map(
       (photo) =>
-        `<div><img class="data-modal-open" src="${photo.url}" alt=""></div>`
+        `<div><img class="data-modal-open" id="${photo.name}" src="${photo.url}" alt=""></div>`
     )
     .join("");
 
@@ -35,6 +37,7 @@ function createMarkup() {
   const label = document.createElement("label");
   const modalForm = document.querySelector("#modalForm");
   const photoAdd = document.createElement("div");
+
   photoAdd.classList.add("add");
   modalForm.addEventListener("click", (event) => {
     console.log(event.target);
@@ -50,7 +53,6 @@ function createMarkup() {
   colection.appendChild(photoAdd);
   input.addEventListener("change", addImage);
   colection.appendChild(label);
-  // label.appendChild(input);
 }
 function addImage(event) {
   const fileList = event.target.files;
@@ -82,12 +84,16 @@ function openModal() {
   console.log(arrImages);
   for (let img of arrImages) {
     img.addEventListener("click", () => {
+      popupImage.src = img.src;
+      document.querySelector("#name").textContent = "Some";
+      modalParams.classList.remove("is-hidden");
       modal.classList.remove("is-hidden");
     });
   }
   let closeModal = document.querySelector(".modal-btn-close");
   closeModal.addEventListener("click", () => {
     modal.classList.add("is-hidden");
+    modalParams.classList.add("is-hidden");
   });
 }
 
