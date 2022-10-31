@@ -26,7 +26,7 @@ function createMarkup() {
     .map(
       (photo) => `
     
-      <div ><img src="${photo.url}" alt=""></div>
+      <div ><img src="${photo.url}" class="photos"></div>
 
    `
     )

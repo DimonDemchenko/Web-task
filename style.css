@@ -34,6 +34,7 @@
 img {
   width: 300px;
   height: 300px;
+  object-fit: cover;
 }
 .add {
   width: 296px;
@@ -48,4 +49,7 @@ label {
   background-size: 110px 110px;
   background-position: center;
   background-repeat: no-repeat;
+}
+.photos {
+  background-size: cover;
 }
