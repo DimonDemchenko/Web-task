@@ -24,11 +24,8 @@ function createMarkup() {
   let arrayData = getData();
   const markup = arrayData
     .map(
-      (photo) => `
-    
-      <div><img class="data-modal-open" src="${photo.url}" alt=""></div>
-
-   `
+      (photo) =>
+        `<div><img class="data-modal-open" src="${photo.url}" alt=""></div>`
     )
     .join("");
 
@@ -76,17 +73,17 @@ function openModal() {
   let arrImages = document.querySelectorAll(".data-modal-open");
   console.log(arrImages);
   for (let img of arrImages) {
-    img.addEventListener("click", toggleModal);
+    img.addEventListener("click", () => {
+      modal.classList.remove("is-hidden");
+    });
   }
   let closeModal = document.querySelector(".modal-btn-close");
+  console.log(closeModal);
   let modal = document.querySelector(".modal");
 
-  closeModal.addEventListener("click", toggleModal);
-
-  function toggleModal() {
-    console.log(modal);
-    modal.classList.toggle("is-hidden");
-  }
+  closeModal.addEventListener("click", () => {
+    modal.classList.add("is-hidden");
+  });
 }
 
 SetDatabase();
