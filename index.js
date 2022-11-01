@@ -1,7 +1,11 @@
+let colection = document.querySelector("#app");
+let modal = document.querySelector(".modal");
+let modalParams = document.querySelector(".popupSizeParams");
+let popupImage = document.querySelector("#popupImage");
+
 async function SetDatabase() {
   const data = await fetch(`./items.json`, {
     method: "GET",
-    headers: { "Content-Type": "application/json" },
   }).then((res) => {
     return res.json();
   });
@@ -11,10 +15,7 @@ async function SetDatabase() {
   createMarkup();
   openModal();
 }
-let colection = document.querySelector("#app");
-let modal = document.querySelector(".modal");
-let modalParams = document.querySelector(".popupSizeParams");
-let popupImage = document.querySelector("#popupImage");
+
 function getData() {
   let arr = [];
   for (let i = 0; i < window.localStorage.length; i++) {
@@ -22,8 +23,13 @@ function getData() {
   }
   return arr;
 }
+
 function createMarkup() {
   let arrayData = getData();
+  const input = document.querySelector("#inputString");
+  const modalForm = document.querySelector("#modalForm");
+  const photoAdd = document.createElement("div");
+
   const markup = arrayData
     .map(
       (photo) =>
@@ -33,26 +39,21 @@ function createMarkup() {
 
   colection.insertAdjacentHTML("beforeend", markup);
 
-  const input = document.querySelector("#inputString");
-  const label = document.createElement("label");
-  const modalForm = document.querySelector("#modalForm");
-  const photoAdd = document.createElement("div");
-
+  photoAdd.style.backgroundImage = 'url("./photos/background.png")';
   photoAdd.classList.add("add");
   modalForm.addEventListener("click", (event) => {
-    console.log(event.target);
     if (event.target == modalForm) {
       modalForm.classList.add("is-hidden");
     }
   });
-  photoAdd.style.backgroundImage = 'url("./photos/background.png")';
 
   photoAdd.addEventListener("click", () => {
     modalForm.classList.remove("is-hidden");
+    let inputName = document.querySelector(".inputName");
+    inputName.value = "";
   });
   colection.appendChild(photoAdd);
   input.addEventListener("change", addImage);
-  colection.appendChild(label);
 }
 function addImage(event) {
   const fileList = event.target.files;
@@ -60,6 +61,7 @@ function addImage(event) {
   const file = fileList.item(0);
   reader.addEventListener("load", (event) => {
     setNewPhoto(event.target.result);
+    modalForm.classList.add("is-hidden");
   });
   reader.readAsDataURL(file);
 }
