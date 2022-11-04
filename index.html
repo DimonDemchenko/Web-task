@@ -28,13 +28,14 @@
       <div id="modalForm" class="is-hidden">
         <div id="panel">
           <form action="" class="form">
-            <label>Name</label><input class="inputName" type="text" />
-            <label for="inputString" id="pictureGalary"></label
-            ><input
-              type="file"
-              id="inputString"
-              accept="image/png image/jpeg"
-            />
+            <h2 class="modalHeader">Leave some data about new photo</h2>
+            <input class="inputName" required type="text" placeholder="Name" />
+            <textarea
+              class="description"
+              placeholder="Enter some description"
+            ></textarea>
+            <input class="photoFile" type="file" />
+            <input class="button" type="submit" />
           </form>
         </div>
       </div>
