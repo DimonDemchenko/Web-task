@@ -5,6 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="./Notiflix-3.2.5/dist/notiflix-3.2.5.min.css"
+    />
     <link href="style.css" rel="stylesheet" />
   </head>
 
@@ -29,17 +33,20 @@
         <div id="panel">
           <form action="" class="form">
             <h2 class="modalHeader">Leave some data about new photo</h2>
-            <input class="inputName" required type="text" placeholder="Name" />
+            <input class="inputName" type="text" placeholder="Name" />
             <textarea
               class="description"
               placeholder="Enter some description"
             ></textarea>
-            <input class="photoFile" type="file" />
+            <input name="file" id="file" class="photoFile" type="file" />
+            <label style="color: black" for="file">Додати фото</label>
             <input class="button" type="submit" />
           </form>
         </div>
       </div>
     </div>
-    <script type="module" src="index.js"></script>
+
+    <script src="index.js"></script>
+    <script src="./Notiflix-3.2.5/dist/notiflix-3.2.5.min.js"></script>
   </body>
 </html>

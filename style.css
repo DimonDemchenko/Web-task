@@ -98,6 +98,10 @@ img {
   resize: none;
 }
 
+.red {
+  background-color: red;
+}
+
 #bodySize {
   width: 100%;
   height: 100%;

@@ -2,6 +2,7 @@ let colection = document.querySelector("#app");
 let modal = document.querySelector(".modal");
 let modalParams = document.querySelector(".popupSizeParams");
 let popupImage = document.querySelector("#popupImage");
+const button = document.querySelector(".button");
 
 async function SetDatabase() {
   const data = await fetch(`./items.json`, {
@@ -37,6 +38,7 @@ function createMarkup() {
   colection.insertAdjacentHTML("beforeend", markup);
   createAddBlock();
 }
+formValidate();
 
 function createAddBlock() {
   const photoAdd = document.createElement("div");
@@ -46,7 +48,9 @@ function createAddBlock() {
     modalForm.classList.remove("is-hidden");
     let inputName = document.querySelector(".inputName");
     inputName.value = "";
+    inputName.addEventListener("input", formValidate);
   });
+
   colection.appendChild(photoAdd);
   createBlockOnClick();
 }
@@ -59,7 +63,11 @@ function createBlockOnClick() {
       modalForm.classList.add("is-hidden");
     }
   });
-  button.addEventListener("click", readPhotoUrl);
+  button.addEventListener("click", () => {
+    if (button.disabled) {
+      Notiflix.Notify.failure("Qui timide rogat docet negare");
+    }
+  });
 }
 
 function readPhotoUrl(event) {
@@ -109,6 +117,15 @@ function closeModal() {
     modal.classList.add("is-hidden");
     modalParams.classList.add("is-hidden");
   });
+}
+
+function formValidate() {
+  let nameInput = document.querySelector(".inputName");
+  if (nameInput.value === "") {
+    button.disabled = true;
+  } else {
+    button.disabled = false;
+  }
 }
 
 SetDatabase();
