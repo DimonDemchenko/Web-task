@@ -5,10 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link
-      rel="stylesheet"
-      href="./Notiflix-3.2.5/dist/notiflix-3.2.5.min.css"
-    />
     <link href="style.css" rel="stylesheet" />
   </head>
 
@@ -17,8 +13,25 @@
       <h3>Photo storage</h3>
       <h3>by Dimonchik and Bogdanchik</h3>
     </div>
-
-    <div id="app" class="main"></div>
+    <div class="collection">
+      <div class="blockAddPhoto"></div>
+      <div id="modalForm" class="is-hidden">
+        <div id="panel">
+          <form action="" class="form">
+            <h2 class="modalHeader">Leave some data about new photo</h2>
+            <input class="inputName" type="text" placeholder="Name" />
+            <textarea
+              class="description"
+              placeholder="Enter some description"
+            ></textarea>
+            <input name="file" id="file" class="photoFile" type="file" />
+            <label style="color: black" for="file">Додати фото</label>
+            <input value="SUBMIT" class="button" type="button" />
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- <div id="app" class="main"></div>
     <div class="popupSizeParams is-hidden">
       <div class="modal is-hidden">
         <button class="modal-btn-close"></button>
@@ -44,9 +57,8 @@
           </form>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <script src="index.js"></script>
-    <script src="./Notiflix-3.2.5/dist/notiflix-3.2.5.min.js"></script>
   </body>
 </html>

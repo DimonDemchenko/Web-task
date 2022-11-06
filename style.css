@@ -23,6 +23,23 @@
   text-align: center;
   justify-self: end;
 }
+
+.collection {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.blockAddPhoto {
+  width: 248px;
+  height: 248px;
+  border: 1px solid black;
+}
+
+.photos {
+  width: 250px;
+  height: 250px;
+}
+
 .main {
   display: flex;
   width: 100%;

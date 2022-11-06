@@ -1,9 +1,7 @@
-let colection = document.querySelector("#app");
-let modal = document.querySelector(".modal");
-let modalParams = document.querySelector(".popupSizeParams");
-let popupImage = document.querySelector("#popupImage");
+const colection = document.querySelector(".collection");
+const modalForm = document.querySelector("#modalForm");
 const button = document.querySelector(".button");
-
+const form = document.querySelector(".form");
 async function SetDatabase() {
   const data = await fetch(`./items.json`, {
     method: "GET",
@@ -14,7 +12,6 @@ async function SetDatabase() {
     window.localStorage.setItem(index, JSON.stringify(item));
   }
   createMarkup();
-  openModal();
 }
 
 function getData() {
@@ -31,46 +28,47 @@ function createMarkup() {
   const markup = arrayData
     .map(
       (photo) =>
-        `<div><img class="data-modal-open" id="${photo.name}" src="${photo.url}" alt=""></div>`
+        `<div><img class="data-modal-open photos" id="${photo.name}" src="${photo.url}" alt=""></div>`
     )
     .join("");
 
-  colection.insertAdjacentHTML("beforeend", markup);
-  createAddBlock();
-}
-formValidate();
-
-function createAddBlock() {
-  const photoAdd = document.createElement("div");
-  photoAdd.style.backgroundImage = 'url("./photos/background.png")';
-  photoAdd.classList.add("add");
-  photoAdd.addEventListener("click", () => {
-    modalForm.classList.remove("is-hidden");
-    let inputName = document.querySelector(".inputName");
-    inputName.value = "";
-    inputName.addEventListener("input", formValidate);
-  });
-
-  colection.appendChild(photoAdd);
+  colection.insertAdjacentHTML("afterbegin", markup);
   createBlockOnClick();
 }
 
 function createBlockOnClick() {
-  const button = document.querySelector(".button");
-  const modalForm = document.querySelector("#modalForm");
+  const blockAddPhoto = document.querySelector(".blockAddPhoto");
+  blockAddPhoto.addEventListener("click", () => {
+    modalForm.classList.remove("is-hidden");
+  });
+  modalFormOnclick();
+}
+function modalFormOnclick() {
   modalForm.addEventListener("click", (event) => {
     if (event.target == modalForm) {
       modalForm.classList.add("is-hidden");
     }
   });
+  formButtonOnClick();
+}
+
+function formButtonOnClick() {
+  const inputName = document.querySelector(".inputName");
+  const photoDescription = document.querySelector(".description");
+  const photoFile = document.querySelector(".photoFile");
   button.addEventListener("click", () => {
-    if (button.disabled) {
-      Notiflix.Notify.failure("Qui timide rogat docet negare");
+    if (
+      inputName.value === "" ||
+      photoDescription.value === "" ||
+      photoFile.files.length === 0
+    ) {
+      alert("Введіть обов’язкові поля!!!");
+    } else {
+      form.submit(readPhotoUrl());
     }
   });
 }
-
-function readPhotoUrl(event) {
+function readPhotoUrl() {
   const fileList = document.querySelector(".photoFile").files;
   const reader = new FileReader();
   const file = fileList.item(0);
@@ -80,7 +78,6 @@ function readPhotoUrl(event) {
   });
   reader.readAsDataURL(file);
 }
-
 function setNewPhoto(url) {
   window.localStorage.setItem(
     window.localStorage.length,
@@ -94,38 +91,127 @@ function setNewPhoto(url) {
     })
   );
   colection.innerHTML = "";
-  createMarkup();
-  openModal();
-}
-
-function openModal() {
-  let arrImages = document.querySelectorAll(".data-modal-open");
-  console.log(arrImages);
-  for (let img of arrImages) {
-    img.addEventListener("click", () => {
-      popupImage.src = img.src;
-      document.querySelector("#name").textContent = "Some";
-      modalParams.classList.remove("is-hidden");
-      modal.classList.remove("is-hidden");
-    });
-  }
-  closeModal();
-}
-function closeModal() {
-  let closeModal = document.querySelector(".modal-btn-close");
-  closeModal.addEventListener("click", () => {
-    modal.classList.add("is-hidden");
-    modalParams.classList.add("is-hidden");
-  });
-}
-
-function formValidate() {
-  let nameInput = document.querySelector(".inputName");
-  if (nameInput.value === "") {
-    button.disabled = true;
-  } else {
-    button.disabled = false;
-  }
 }
 
 SetDatabase();
+
+// let colection = document.querySelector("#app");
+// let modal = document.querySelector(".modal");
+// let modalParams = document.querySelector(".popupSizeParams");
+// let popupImage = document.querySelector("#popupImage");
+// const button = document.querySelector(".button");
+
+// async function SetDatabase() {
+//   const data = await fetch(`./items.json`, {
+//     method: "GET",
+//   }).then((res) => {
+//     return res.json();
+//   });
+//   for (const [index, item] of data.entries()) {
+//     window.localStorage.setItem(index, JSON.stringify(item));
+//   }
+//   createMarkup();
+//   openModal();
+// }
+
+// function getData() {
+//   let arr = [];
+//   for (let i = 0; i < window.localStorage.length; i++) {
+//     arr.push(JSON.parse(window.localStorage.getItem(i)));
+//   }
+//   return arr;
+// }
+
+// function createMarkup() {
+//   let arrayData = getData();
+
+//   const markup = arrayData
+//     .map(
+//       (photo) =>
+//         `<div><img class="data-modal-open" id="${photo.name}" src="${photo.url}" alt=""></div>`
+//     )
+//     .join("");
+
+//   colection.insertAdjacentHTML("beforeend", markup);
+//   createAddBlock();
+// }
+// formValidate();
+
+// function createAddBlock() {
+//   const photoAdd = document.createElement("div");
+//   photoAdd.style.backgroundImage = 'url("./photos/background.png")';
+//   photoAdd.classList.add("add");
+//   photoAdd.addEventListener("click", () => {
+//     modalForm.classList.remove("is-hidden");
+//     let inputName = document.querySelector(".inputName");
+//     inputName.value = "";
+//     inputName.addEventListener("input", formValidate);
+//   });
+
+//   colection.appendChild(photoAdd);
+//   createBlockOnClick();
+// }
+
+// function createBlockOnClick() {
+//   const button = document.querySelector(".button");
+//   const modalForm = document.querySelector("#modalForm");
+//   modalForm.addEventListener("click", (event) => {
+//     if (event.target == modalForm) {
+//       modalForm.classList.add("is-hidden");
+//     }
+//   });
+//   button.addEventListener("click", () => {
+//     if (button.disabled) {
+//       Notiflix.Notify.failure("Qui timide rogat docet negare");
+//     }
+//   });
+// }
+
+// function setNewPhoto(url) {
+//   window.localStorage.setItem(
+//     window.localStorage.length,
+//     JSON.stringify({
+//       name: document.querySelector(".inputName").value,
+//       name2: "something",
+//       count_likes: "121",
+//       count_dislike: "134",
+//       url: url,
+//       comments: [],
+//     })
+//   );
+//   colection.innerHTML = "";
+//   createMarkup();
+//   openModal();
+// }
+
+// function openModal() {
+//   let arrImages = document.querySelectorAll(".data-modal-open");
+//   console.log(arrImages);
+//   for (let img of arrImages) {
+//     img.addEventListener("click", () => {
+//       popupImage.src = img.src;
+//       document.querySelector("#name").textContent = "Some";
+//       modalParams.classList.remove("is-hidden");
+//       modal.classList.remove("is-hidden");
+//     });
+//   }
+//   closeModal();
+// }
+// function closeModal() {
+//   let closeModal = document.querySelector(".modal-btn-close");
+//   closeModal.addEventListener("click", () => {
+//     modal.classList.add("is-hidden");
+//     modalParams.classList.add("is-hidden");
+//   });
+// }
+
+// function formValidate() {
+//   let nameInput = document.querySelector(".inputName");
+//   if (nameInput.value === "") {
+//     button.disabled = true;
+//   } else {
+//     button.disabled = false;
+//   }
+// }
+
+// SetDatabase();
