@@ -2,6 +2,8 @@ const colection = document.querySelector(".collection");
 const modalForm = document.querySelector("#modalForm");
 const button = document.querySelector(".button");
 const form = document.querySelector(".form");
+const modalParams = document.querySelector('.popupSizeParams')
+const modal = document.querySelector('.modal')
 async function SetDatabase() {
   const data = await fetch(`./items.json`, {
     method: "GET",
@@ -24,16 +26,17 @@ function getData() {
 
 function createMarkup() {
   let arrayData = getData();
-
+  console.log(arrayData)
   const markup = arrayData
     .map(
-      (photo) =>
-        `<div><img class="data-modal-open photos" id="${photo.name}" src="${photo.url}" alt=""></div>`
+      (photo, index) =>
+        `<div><img class="data-modal-open photos" id="${index}" src="${photo.url}" alt=""></div>`
     )
     .join("");
 
   colection.insertAdjacentHTML("afterbegin", markup);
   createBlockOnClick();
+  openModal()
 }
 
 function createBlockOnClick() {
@@ -93,6 +96,33 @@ function setNewPhoto(url) {
   colection.innerHTML = "";
 }
 
+//Функції для роботи з фото після кліку
+function openModal() {
+  let arrImages = document.querySelectorAll(".data-modal-open");
+  console.log(arrImages);
+  for (let img of arrImages) {
+    img.addEventListener("click", () => {
+      getPhotoData(img)
+      modalParams.classList.remove("is-hidden");
+      modal.classList.remove("is-hidden");
+    });
+  }
+  closeModal();
+}
+
+function getPhotoData(img) {
+  popupImage.src = img.src;
+  const data = JSON.parse(window.localStorage.getItem(img.id))
+  console.log(data)
+  document.querySelector("#name").textContent = data.name;
+}
+function closeModal() {
+  let closeModal = document.querySelector(".modal-btn-close");
+  closeModal.addEventListener("click", () => {
+    modal.classList.add("is-hidden");
+    modalParams.classList.add("is-hidden");
+  });
+}
 SetDatabase();
 
 // let colection = document.querySelector("#app");
