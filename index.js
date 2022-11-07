@@ -2,8 +2,8 @@ const colection = document.querySelector(".collection");
 const modalForm = document.querySelector("#modalForm");
 const button = document.querySelector(".button");
 const form = document.querySelector(".form");
-const modalParams = document.querySelector('.popupSizeParams')
-const modal = document.querySelector('.modal')
+const modalParams = document.querySelector(".popupSizeParams");
+const modal = document.querySelector(".modal");
 async function SetDatabase() {
   const data = await fetch(`./items.json`, {
     method: "GET",
@@ -26,7 +26,7 @@ function getData() {
 
 function createMarkup() {
   let arrayData = getData();
-  console.log(arrayData)
+  console.log(arrayData);
   const markup = arrayData
     .map(
       (photo, index) =>
@@ -36,7 +36,7 @@ function createMarkup() {
 
   colection.insertAdjacentHTML("afterbegin", markup);
   createBlockOnClick();
-  openModal()
+  openModal();
 }
 
 function createBlockOnClick() {
@@ -87,8 +87,10 @@ function setNewPhoto(url) {
     JSON.stringify({
       name: document.querySelector(".inputName").value,
       name2: "something",
-      count_likes: "121",
-      count_dislike: "134",
+      like: false,
+      dislike: false,
+      count_likes: 0,
+      count_dislike: 0,
       url: url,
       comments: [],
     })
@@ -102,55 +104,85 @@ function openModal() {
   console.log(arrImages);
   for (let img of arrImages) {
     img.addEventListener("click", () => {
-      getPhotoData(img)
+      getPhotoData(img);
       modalParams.classList.remove("is-hidden");
       modal.classList.remove("is-hidden");
     });
   }
-  likeAndDislike()
+
   closeModal();
 }
 
 function getPhotoData(img) {
   popupImage.src = img.src;
-  const data = JSON.parse(window.localStorage.getItem(img.id))
-  console.log(data)
+  const data = JSON.parse(window.localStorage.getItem(img.id));
   document.querySelector("#name").textContent = data.name;
-  document.querySelector('#description').textContent = data.name2;
+  document.querySelector("#description").textContent = data.name2;
+  likeAndDislike(data);
 }
 function closeModal() {
   let closeModal = document.querySelector(".modal-btn-close");
   closeModal.addEventListener("click", () => {
+    const btn1 = document.querySelector(".like__block");
+    const btn2 = document.querySelector(".dislike__block");
+    btn1.removeEventListener("click", like);
+    btn2.removeEventListener("click", dislike);
     modal.classList.add("is-hidden");
     modalParams.classList.add("is-hidden");
   });
 }
+const btn1 = document.querySelector(".like__block");
+const btn2 = document.querySelector(".dislike__block");
+const btn_like = document.querySelector(".like");
+const btn_dislike = document.querySelector(".dislike");
+//Механіка лайків
+function likeAndDislike(img) {
+  if (img.like) {
+    btn_like.classList.add("green");
+  } else {
+    btn_like.classList.remove("green");
+  }
+  if (img.dislike) {
+    btn_dislike.classList.add("red");
+  } else {
+    btn_dislike.classList.remove("red");
+  }
 
-//Механіка лайків 
-function likeAndDislike() {
-  const btn1 = document.querySelector('.like__block');
-  const btn2 = document.querySelector('.dislike__block');
-  const btn_like = document.querySelector('.like')
-  const btn_dislike = document.querySelector('.dislike')
+  btn1.addEventListener("click", like(img));
 
-  btn1.addEventListener('click', function () {
+  btn2.addEventListener("click", dislike(img));
+}
+function like(img) {
+  if (btn_dislike.classList.contains("red")) {
+    btn_dislike.classList.remove("red");
+    img.count_dislike--;
+    img.dislike = false;
+  }
+  btn_like.classList.toggle("green");
+  if (btn_like.classList.contains("green")) {
+    img.like = true;
+    img.count_like++;
+  } else {
+    img.like = false;
+    img.count_like--;
+  }
+}
 
-    if (btn_dislike.classList.contains('red')) {
-      btn_dislike.classList.remove('red');
-    }
-    btn_like.classList.toggle('green');
-
-  });
-
-  btn2.addEventListener('click', function () {
-
-    if (btn_like.classList.contains('green')) {
-      btn_like.classList.remove('green');
-    }
-    btn_dislike.classList.toggle('red');
-
-  });
-
+function dislike(img) {
+  if (btn_like.classList.contains("green")) {
+    btn_like.classList.remove("green");
+    img.count_like--;
+    img.like = false;
+  }
+  btn_dislike.classList.toggle("red");
+  if (btn_dislike.classList.contains("red")) {
+    img.dislike = true;
+    img.count_dislike++;
+  } else {
+    img.dislike = false;
+    img.count_dislike--;
+  }
+  console.log("Кількість дизлайків" + img.count_dislike);
 }
 SetDatabase();
 
