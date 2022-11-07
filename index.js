@@ -107,6 +107,7 @@ function openModal() {
       modal.classList.remove("is-hidden");
     });
   }
+  likeAndDislike()
   closeModal();
 }
 
@@ -115,6 +116,7 @@ function getPhotoData(img) {
   const data = JSON.parse(window.localStorage.getItem(img.id))
   console.log(data)
   document.querySelector("#name").textContent = data.name;
+  document.querySelector('#description').textContent = data.name2;
 }
 function closeModal() {
   let closeModal = document.querySelector(".modal-btn-close");
@@ -122,6 +124,33 @@ function closeModal() {
     modal.classList.add("is-hidden");
     modalParams.classList.add("is-hidden");
   });
+}
+
+//Механіка лайків 
+function likeAndDislike() {
+  const btn1 = document.querySelector('.like__block');
+  const btn2 = document.querySelector('.dislike__block');
+  const btn_like = document.querySelector('.like')
+  const btn_dislike = document.querySelector('.dislike')
+
+  btn1.addEventListener('click', function () {
+
+    if (btn_dislike.classList.contains('red')) {
+      btn_dislike.classList.remove('red');
+    }
+    btn_like.classList.toggle('green');
+
+  });
+
+  btn2.addEventListener('click', function () {
+
+    if (btn_like.classList.contains('green')) {
+      btn_like.classList.remove('green');
+    }
+    btn_dislike.classList.toggle('red');
+
+  });
+
 }
 SetDatabase();
 

@@ -195,3 +195,81 @@ input {
   background-color: rgba(75, 188, 188, 0.27);
   top: 0px;
 }
+.like__block {
+  width: 50%;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+}
+.dislike__block {
+  width: 50%;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+}
+.like__dislike {
+  width: 200px;
+  height: 50px;
+  background-color: #ffffff;
+  border-top-left-radius: 25px 25px;
+  border-top-right-radius: 25px 25px;
+  border-bottom-right-radius: 25px 25px;
+  border-bottom-left-radius: 25px 25px;
+  display: flex;
+  justify-content: space-around;
+}
+.like {
+  background-image: url("./photos/like.png");
+  width: 50%;
+  height: 50px;
+  background-size: 35px 35px;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-top-left-radius: 25px 25px;
+  border-bottom-left-radius: 25px 25px;
+  border: none;
+  outline: none;
+  background-color: #ffffff;
+}
+.dislike {
+  background-image: url("./photos/dislike.png");
+  width: 50%;
+  height: 50px;
+  background-size: 35px 35px;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  outline: none;
+  border-top-right-radius: 25px 25px;
+  border-bottom-right-radius: 25px 25px;
+  background-color: #ffffff;
+}
+#Wall {
+  width: 20px;
+}
+.like__block:hover .like {
+  background-color: #2196f3;
+  border-top-left-radius: 25px 25px;
+  border-bottom-left-radius: 25px 25px;
+}
+.like__block:hover {
+  background-color: #2196f3;
+  border-top-left-radius: 25px 25px;
+  border-bottom-left-radius: 25px 25px;
+}
+.dislike__block:hover .dislike {
+  background-color: #2196f3;
+  border-top-right-radius: 25px 25px;
+  border-bottom-right-radius: 25px 25px;
+}
+.dislike__block:hover {
+  background-color: #2196f3;
+  border-top-right-radius: 25px 25px;
+  border-bottom-right-radius: 25px 25px;
+}
+.green {
+  background-color: green;
+}
+.red {
+  background-color: red;
+}
