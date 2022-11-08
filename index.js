@@ -134,8 +134,8 @@ function closeModal() {
   closeModal.addEventListener("click", () => {
     const btn1 = document.querySelector(".like__block");
     const btn2 = document.querySelector(".dislike__block");
-    btn1.removeEventListener("click", () => {});
-    btn2.removeEventListener("click", () => {});
+    btn1.removeEventListener("click", () => { });
+    btn2.removeEventListener("click", () => { });
     modal.classList.add("is-hidden");
     modalParams.classList.add("is-hidden");
     clearComments();
@@ -217,10 +217,33 @@ function createMarkupForComments() {
     .join("");
 
   comments_list.insertAdjacentHTML("beforeend", markupForComments);
+  setNewComment()
+
 }
 
 function clearComments() {
   const comments_list = document.querySelector(".comment_list");
   comments_list.innerHTML = "";
+}
+const bool = true;
+function setNewComment() {
+  const commnetButton = document.querySelector('.comment__input')
+
+  commnetButton.addEventListener('click', commnetButtonClick, bool)
+
+
+}
+function commnetButtonClick() {
+  const commnetButton = document.querySelector('.comment__input')
+  const commentText = document.querySelector('.comment__message')
+  data.comments.push(commentText.value)
+  window.localStorage.setItem(id, JSON.stringify(data))
+  const comments_list = document.querySelector(".comment_list");
+  commentText.value = ""
+  comments_list.innerHTML = ""
+  createMarkupForComments()
+  bool = false
+
+
 }
 SetDatabase();

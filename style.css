@@ -159,7 +159,7 @@ img {
   width: 528px;
   height: 581px;
   border-radius: 4px;
-  /* background-color: rgb(44, 38, 38); */
+  background-color: white;
   /* display: flex;
   flex-direction: column; */
   overflow-y: scroll;
@@ -274,4 +274,9 @@ input {
 }
 .red {
   background-color: red;
+}
+
+/* Comments */
+.comment__input {
+  width: 30%;
 }
