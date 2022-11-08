@@ -150,6 +150,7 @@ img {
 .photos {
   background-size: cover;
 }
+
 .modal {
   position: absolute;
   left: 50%;
@@ -159,8 +160,9 @@ img {
   height: 581px;
   border-radius: 4px;
   background-color: rgb(44, 38, 38);
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
+  overflow-y: scroll;
 }
 .modal-btn-close {
   align-self: flex-end;
