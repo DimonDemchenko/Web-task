@@ -11,9 +11,8 @@ async function SetDatabase() {
     return res.json();
   });
   for (const [index, item] of data.entries()) {
-    if (window.localStorage.getItem(index) == "") {
+    if (window.localStorage.getItem(index) == null) {
       window.localStorage.setItem(index, JSON.stringify(item));
-
     }
   }
   createMarkup();
@@ -33,7 +32,7 @@ function createMarkup() {
   const markup = arrayData
     .map(
       (photo, index) =>
-        `<div><img class="data-modal-open photos" id="${index}" src="${photo.url}" alt=""></div>`
+        `<div class="img_list"><img class="data-modal-open photos" id="${index}" src="${photo.url}" alt=""></div>`
     )
     .join("");
 
@@ -137,8 +136,8 @@ function closeModal() {
   closeModal.addEventListener("click", () => {
     const btn1 = document.querySelector(".like__block");
     const btn2 = document.querySelector(".dislike__block");
-    btn1.removeEventListener("click", () => { });
-    btn2.removeEventListener("click", () => { });
+    btn1.removeEventListener("click", () => {});
+    btn2.removeEventListener("click", () => {});
     modal.classList.add("is-hidden");
     modalParams.classList.add("is-hidden");
     clearComments();
@@ -220,8 +219,7 @@ function createMarkupForComments() {
     .join("");
 
   comments_list.insertAdjacentHTML("beforeend", markupForComments);
-  setNewComment()
-
+  setNewComment();
 }
 
 function clearComments() {
@@ -230,23 +228,22 @@ function clearComments() {
 }
 const bool = true;
 function setNewComment() {
-  const commnetButton = document.querySelector('.comment__input')
+  const commnetButton = document.querySelector(".comment__input");
 
-  commnetButton.addEventListener('click', commnetButtonClick, bool)
-
-
+  commnetButton.addEventListener("click", commnetButtonClick, bool);
 }
 function commnetButtonClick() {
-  const commnetButton = document.querySelector('.comment__input')
-  const commentText = document.querySelector('.comment__message')
-  data.comments.push(commentText.value)
-  window.localStorage.setItem(id, JSON.stringify(data))
-  const comments_list = document.querySelector(".comment_list");
-  commentText.value = ""
-  comments_list.innerHTML = ""
-  createMarkupForComments()
-  bool = false
-
-
+  const commentText = document.querySelector(".comment__message");
+  if (commentText.value == "") {
+    alert("Введіть коментар");
+  } else {
+    data.comments.push(commentText.value);
+    window.localStorage.setItem(id, JSON.stringify(data));
+    const comments_list = document.querySelector(".comment_list");
+    commentText.value = "";
+    comments_list.innerHTML = "";
+    createMarkupForComments();
+    bool = false;
+  }
 }
 SetDatabase();
