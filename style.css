@@ -239,6 +239,17 @@ img {
 #inputString {
   display: none;
 }
+#file {
+  display: none;
+}
+.label {
+  color: black;
+  background-image: url("./photos/plus.png");
+  background-size: 100px 100px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
 #panel {
   width: 500px;
   height: auto;
