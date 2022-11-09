@@ -134,18 +134,14 @@ function getPhotoData(img) {
 function closeModal() {
   let closeModal = document.querySelector(".modal-btn-close");
   closeModal.addEventListener("click", () => {
-    const btn1 = document.querySelector(".like__block");
-    const btn2 = document.querySelector(".dislike__block");
-    btn1.removeEventListener("click", () => {});
-    btn2.removeEventListener("click", () => {});
     modal.classList.add("is-hidden");
     modalParams.classList.add("is-hidden");
     clearComments();
   });
 }
 //Механіка лайків
-const btn1 = document.querySelector(".like__block");
-const btn2 = document.querySelector(".dislike__block");
+const btn_likeBlock = document.querySelector(".like__block");
+const btn_dislikeBlock = document.querySelector(".dislike__block");
 const btn_like = document.querySelector(".like");
 const btn_dislike = document.querySelector(".dislike");
 
@@ -162,9 +158,9 @@ function likeAndDislike(img) {
     btn_dislike.classList.remove("red");
   }
 
-  btn1.addEventListener("click", likes);
+  btn_likeBlock.addEventListener("click", likes);
 
-  btn2.addEventListener("click", dislikes);
+  btn_dislikeBlock.addEventListener("click", dislikes);
 }
 
 function likes() {
@@ -172,17 +168,17 @@ function likes() {
     btn_dislike.classList.remove("red");
     data.count_dislike--;
     data.dislike = false;
-    countDislike.innerHTML--;
+    countDislike.innerText--;
   }
   btn_like.classList.toggle("green");
   if (btn_like.classList.contains("green")) {
     data.like = true;
     data.count_like++;
-    countLike.innerHTML++;
+    countLike.innerText++;
   } else {
     data.like = false;
     data.count_like--;
-    countLike.innerHTML--;
+    countLike.innerText--;
   }
   updatePhotoData();
 }
@@ -192,17 +188,17 @@ function dislikes() {
     btn_like.classList.remove("green");
     data.count_like--;
     data.like = false;
-    countLike.innerHTML--;
+    countLike.innerText--;
   }
   btn_dislike.classList.toggle("red");
   if (btn_dislike.classList.contains("red")) {
     data.dislike = true;
     data.count_dislike++;
-    countDislike.innerHTML++;
+    countDislike.innerText++;
   } else {
     data.dislike = false;
     data.count_dislike--;
-    countDislike.innerHTML--;
+    countDislike.innerText--;
   }
   updatePhotoData();
 }
@@ -215,7 +211,7 @@ function updatePhotoData() {
 function createMarkupForComments() {
   const comments_list = document.querySelector(".comment_list");
   const markupForComments = data.comments
-    .map((coment) => `<li>${coment}</li>`)
+    .map((coment) => `<li class="comment__text">${coment}</li>`)
     .join("");
 
   comments_list.insertAdjacentHTML("beforeend", markupForComments);
