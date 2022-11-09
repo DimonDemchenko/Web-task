@@ -62,14 +62,11 @@ function formButtonOnClick() {
   const photoDescription = document.querySelector(".description");
   const photoFile = document.querySelector(".photoFile");
   button.addEventListener("click", () => {
-    if (
-      inputName.value === "" ||
-      photoDescription.value === "" ||
-      photoFile.files.length === 0
-    ) {
+    if (inputName.value === "" || photoDescription.value === "") {
       alert("Введіть обов’язкові поля!!!");
+    } else if (photoFile.files.length === 0) {
+      alert("Оберіть фото");
     } else {
-
       form.submit(readPhotoUrl());
     }
   });
@@ -81,7 +78,6 @@ function readPhotoUrl() {
   reader.addEventListener("load", (event) => {
     setNewPhoto(event.target.result);
     modalForm.classList.add("is-hidden");
-
   });
   reader.readAsDataURL(file);
 }
@@ -235,7 +231,6 @@ function commnetButtonClick() {
   if (commentText.value == "") {
     alert("Введіть коментар");
   } else {
-
     data.comments.push(commentText.value);
     window.localStorage.setItem(id, JSON.stringify(data));
     const comments_list = document.querySelector(".comment_list");
