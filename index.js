@@ -11,7 +11,10 @@ async function SetDatabase() {
     return res.json();
   });
   for (const [index, item] of data.entries()) {
-    window.localStorage.setItem(index, JSON.stringify(item));
+    if (window.localStorage.getItem(index) == "") {
+      window.localStorage.setItem(index, JSON.stringify(item));
+
+    }
   }
   createMarkup();
 }
