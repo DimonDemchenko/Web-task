@@ -4,24 +4,24 @@ const button = document.querySelector(".button");
 const form = document.querySelector(".form");
 const modalParams = document.querySelector(".popupSizeParams");
 const modal = document.querySelector(".modal");
+let account;
+let userTAG;
 async function SetDatabase() {
-  const data = await fetch(`./items.json`, {
-    method: "GET",
-  }).then((res) => {
-    return res.json();
-  });
-  for (const [index, item] of data.entries()) {
-    if (window.localStorage.getItem(index) == null) {
-      window.localStorage.setItem(index, JSON.stringify(item));
-    }
-  }
   createMarkup();
 }
 
 function getData() {
   let arr = [];
-  for (let i = 0; i < window.localStorage.length; i++) {
-    arr.push(JSON.parse(window.localStorage.getItem(i)));
+  if (window.sessionStorage.getItem("ActiveUser") != null) {
+
+    account = JSON.parse(window.localStorage.getItem(window.sessionStorage.getItem("ActiveUser")))
+    userTAG = window.sessionStorage.getItem("ActiveUser")
+    loginButton.style.backgroundColor = "green"
+    accountActive.textContent = `${account.userName} ${account.userSecondName}`
+    for (let i = 0; i < account.photos.length; i++) {
+      console.log(`${i} | ${account}`)
+      arr.push(JSON.parse(window.localStorage.getItem(window.sessionStorage.getItem("ActiveUser"))).photos[i])
+    }
   }
   return arr;
 }
@@ -82,19 +82,21 @@ function readPhotoUrl() {
   reader.readAsDataURL(file);
 }
 function setNewPhoto(url) {
-  window.localStorage.setItem(
-    window.localStorage.length,
-    JSON.stringify({
-      name: document.querySelector(".inputName").value,
-      name2: document.querySelector(".description").value,
-      like: false,
-      dislike: false,
-      count_like: 0,
-      count_dislike: 0,
-      url: url,
-      comments: [],
-    })
-  );
+
+  const newPhoto = {
+    name: document.querySelector(".inputName").value,
+    name2: document.querySelector(".description").value,
+    like: false,
+    dislike: false,
+    count_like: 0,
+    count_dislike: 0,
+    url: url,
+    comments: [],
+  }
+  account.photos.push(newPhoto)
+  console.log(account)
+
+  window.localStorage.setItem(userTAG, JSON.stringify(account))
   colection.innerHTML = "";
 }
 
@@ -120,7 +122,7 @@ let countDislike = document.querySelector(".count_of_dislike");
 function getPhotoData(img) {
   popupImage.src = img.src;
   id = img.id;
-  data = JSON.parse(window.localStorage.getItem(img.id));
+  data = account.photos[img.id];
   document.querySelector("#name").textContent = data.name;
   document.querySelector("#description").textContent = data.name2;
   countLike.innerHTML = data.count_like;
@@ -202,7 +204,8 @@ function dislikes() {
 }
 
 function updatePhotoData() {
-  window.localStorage.setItem(id, JSON.stringify(data));
+
+  window.localStorage.setItem(userTAG, JSON.stringify(account))
 }
 
 // Функції для роботи з коментарями
@@ -238,6 +241,92 @@ function commnetButtonClick() {
     comments_list.innerHTML = "";
     createMarkupForComments();
     bool = false;
+  }
+}
+
+//Login window
+const loginButton = document.querySelector(".loginButton");
+const accountActive = document.querySelector(".accountActive")
+
+//console.log(loginButton)
+function showLoginForm() {
+  const loginForm = document.querySelector('#loginForm');
+  loginForm.classList.remove('is-hidden');
+  loginForm.addEventListener("click", hideLoginForm)
+}
+function hideLoginForm() {
+  const loginForm = document.querySelector('#loginForm');
+  loginForm.addEventListener("click", (event) => {
+    if (event.target == loginForm) {
+      loginForm.classList.add("is-hidden");
+    }
+  })
+}
+
+let userCounter = 0;
+let counterOfequals = 0;
+loginButton.addEventListener("click", showLoginForm)
+const submitForm = document.querySelector(".submitButton")
+submitForm.addEventListener("click", submitData)
+function submitData(event) {
+  let userName = "";
+  let userSecondName = "";
+  let password = "";
+  event.preventDefault()
+  userName = document.querySelector(".loginName").value;
+  userSecondName = document.querySelector('.loginSecondName').value;
+  password = document.querySelector(".loginPassword").value;
+  for (let i = 0; i < window.localStorage.length; i++) {
+    const user = JSON.parse(window.localStorage.getItem(`User${i}`))
+    console.log(`${i} | ${counterOfequals} | ${window.localStorage.length}`)
+    if (user.userName != userName && user.userSecondName != userSecondName) {
+      counterOfequals++;
+    }
+  }
+  console.log("Count:" + counterOfequals)
+  if (counterOfequals == window.localStorage.length) {
+    window.localStorage.setItem(`User${window.localStorage.length}`, JSON.stringify({
+      userName: userName,
+      userSecondName: userSecondName,
+      password: password,
+      photos: []
+    }))
+    userTAG = `User${window.localStorage.length - 1}`
+    account = JSON.parse(window.localStorage.getItem(userTAG))
+    alert("Sucsesful")
+    console.log(account)
+    loginButton.style.backgroundColor = "green"
+    accountActive.textContent = `${userName} ${userSecondName}`
+    window.sessionStorage.setItem("ActiveUser", userTAG)
+    location.reload()
+    SetDatabase();
+    counterOfequals = 0;
+  }
+  else {
+    counterOfequals = 0;
+    alert("This user has been created")
+    return
+  }
+}
+
+const enterButton = document.querySelector('.enterButton');
+enterButton.addEventListener("click", enterAccount)
+function enterAccount() {
+  userName = document.querySelector(".loginName").value;
+  userSecondName = document.querySelector('.loginSecondName').value;
+  password = document.querySelector(".loginPassword").value;
+  for (let i = 0; i < window.localStorage.length; i++) {
+    const user = JSON.parse(window.localStorage.getItem(`User${i}`))
+    if (user.userName == userName && user.userSecondName == userSecondName && user.password == password) {
+      alert("Sucsesful")
+      userTAG = `User${i}`
+      account = user;
+      window.sessionStorage.setItem("ActiveUser", userTAG)
+      loginButton.style.backgroundColor = "green"
+      accountActive.textContent = `${userName} ${userSecondName}`
+      location.reload()
+      SetDatabase();
+    }
   }
 }
 SetDatabase();
