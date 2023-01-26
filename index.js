@@ -95,7 +95,8 @@ function setNewPhoto(url) {
   }
   account.photos.push(newPhoto)
   console.log(account)
-
+  window.sessionStorage.setItem(window.sessionStorage.getItem("ActiveUser"), JSON.stringify(account))
+  window.sessionStorage.setItem("SOME", JSON.stringify(account))
   window.localStorage.setItem(userTAG, JSON.stringify(account))
   colection.innerHTML = "";
 }
@@ -205,7 +206,7 @@ function dislikes() {
 
 function updatePhotoData() {
 
-  window.localStorage.setItem(userTAG, JSON.stringify(account))
+  // window.localStorage.setItem(userTAG, JSON.stringify(account))
 }
 
 // Функції для роботи з коментарями
@@ -234,8 +235,8 @@ function commnetButtonClick() {
   if (commentText.value == "") {
     alert("Введіть коментар");
   } else {
-    data.comments.push(commentText.value);
-    window.localStorage.setItem(id, JSON.stringify(data));
+    account.photos[id].comments.push(commentText.value);
+    window.localStorage.setItem(userTAG, JSON.stringify(account));
     const comments_list = document.querySelector(".comment_list");
     commentText.value = "";
     comments_list.innerHTML = "";
@@ -284,7 +285,7 @@ function submitData(event) {
     }
   }
   console.log("Count:" + counterOfequals)
-  if (counterOfequals == window.localStorage.length) {
+  if (counterOfequals == window.localStorage.length && userName != "" && userSecondName != "") {
     window.localStorage.setItem(`User${window.localStorage.length}`, JSON.stringify({
       userName: userName,
       userSecondName: userSecondName,

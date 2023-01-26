@@ -12,24 +12,22 @@
 <body>
   <div class="navbar">
     <h3>Photo storage</h3>
-    <button class="loginButton">Login</button>
     <h3 class="accountActive"></h3>
     <div id="loginForm" class="is-hidden">
       <div id="panel">
         <form action="" class="submitForm">
-
           <h2 class="modalHeader">Enter in your account</h2>
           <input class="loginName" type="text" placeholder="Name" />
           <input class="loginSecondName" type="text" placeholder="Second Name" />
           <input class="loginPassword" type="text" placeholder="Password" /><br>
-          <button class="submitButton" type="button">Submit</button>
-          <button class="enterButton" type="button">Enter</button>
-
+          <div class="buttonsLogin">
+            <button class="submitButton" type="button">Submit</button>
+            <button class="enterButton" type="button">Enter</button>
+          </div>
         </form>
       </div>
     </div>
-    <h3>by Dimonchik and Bogdanchik</h3>
-
+    <button class="loginButton">Login</button>
   </div>
   <div class="collection">
     <div class="blockAddPhoto"></div>
@@ -66,7 +64,6 @@
               <button class="dislike"></button>
             </div>
           </div>
-
           <p id="description"></p>
           <div class="comment_block">
             <div class="comment_position">
