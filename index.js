@@ -94,11 +94,8 @@ function setNewPhoto(url) {
     comments: [],
   }
   account.photos.push(newPhoto)
-  console.log(account)
-  window.sessionStorage.setItem(window.sessionStorage.getItem("ActiveUser"), JSON.stringify(account))
-  window.sessionStorage.setItem("SOME", JSON.stringify(account))
   window.localStorage.setItem(userTAG, JSON.stringify(account))
-  colection.innerHTML = "";
+  location.reload()
 }
 
 //Функції для роботи з фото після кліку
